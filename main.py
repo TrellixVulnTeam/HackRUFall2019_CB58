@@ -10,11 +10,11 @@ auth_token = '54ed90c4225c224e23f0d35568b307d8'
 
 client = Client(account_sid, auth_token)
 
-# message = client.messages.create(
-#                               from_='+12055129674',
-#                               body='body',
-#                               to='+17326667804'
-#                           )
+message = client.messages.create(
+                              from_='+12055129674',
+                              body='Welcome to RUHelp',
+                              to='+17326667804'
+                          )
 
 # print(message.sid)
 # print(contents)
