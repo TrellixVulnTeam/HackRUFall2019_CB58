@@ -10,7 +10,7 @@ client = Client(account_sid, auth_token)
 
 message = client.messages.create(
                               from_='+12055129674',
-                              body='body',
+                              body='Welcome to RUHelp',
                               to='+17326667804'
                           )
 
