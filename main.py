@@ -1,5 +1,5 @@
 from twilio.rest import Client
-import urllib.request
+import urllib
 import feedparser
 
 contents = urllib.request.urlopen("http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7").read()
@@ -27,13 +27,23 @@ print('Enter interest to search for:')
 interest = input()
 
 interst = interest.lower()
-
+count = 0
 for x in feed.entries:
     event_title = x.title
     event_title=event_title.lower()
     if(interest in event_title):
-        print('Event found with interest:')
-        print(x.title)
-        if(x.description != x.title):
-            print(x.description)
-        print(x.event_begindatetime)
+        count=count+1
+        if(count > 5):
+            break
+        print("------------------------------")
+        # print('Event found with interest:')
+        print(str(count)+'. ', end = '')
+        title = str(x.title)
+        print(title[0:20]+'...')
+        # print(x.title)
+        # if(x.description != x.title):
+        #     print(x.description)
+        # print(x.event_begindatetime)
+
+print("Please enter the number of any event that interests you, or send 0 to cancel")
+eventNum = input()
