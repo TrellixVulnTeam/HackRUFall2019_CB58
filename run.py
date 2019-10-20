@@ -14,6 +14,9 @@ userI = None
 def set():
     session['key'] = 'value'
     session['userInput']=userI
+    session['date']=date1
+    session['time']=time1
+    session['title']=title1
     return 'ok'
 
 @app.route('/get/')
@@ -29,10 +32,21 @@ def sms_reply():
     # Start our TwiML response
     resp = MessagingResponse()
     # Add a message
-    userInput=(request.form['CurrentInput'])
-    resp.message(userInput)
-    print(resp)
-    return str(resp)
+    FORM = request.form.to_dict()
+    date1 = json.loads(FORM["Memory"])["twilio"]["collected_data"]["collect_keywords"]["answers"]["date"]["answer"]
+    time1 = json.loads(FORM["Memory"])["twilio"]["collected_data"]["collect_keywords"]["answers"]["time"]["answer"]
+    title1 = json.loads(FORM["Memory"])["twilio"]["collected_data"]["collect_keywords"]["answers"]["title"]["answer"]
+
+    #print(request.form["date"])
+    #dateInput=(request.form["date"])
+    #timeInput=(request.form["time"])
+    #titleInput=(request.form["title"])
+    #resp.message(userInput)
+    #print(dateInput)
+    #print(timeInput)
+    #print(titleInput)
+
+    return ("hello")
     userI=userInput
 
 
