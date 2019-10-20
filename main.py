@@ -1,6 +1,9 @@
 from twilio.rest import Client
 import urllib
 import feedparser
+import os
+from flask import Flask, request, redirect, session
+from run import set
 
 contents = urllib.request.urlopen("http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7").read()
 feed = feedparser.parse('http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7')
@@ -19,7 +22,7 @@ client = Client(account_sid, auth_token)
 # print(message.sid)
 # print(contents)
 print(str(len(feed['entries'])) + " events happening this week.")
-
+print(session.get("userInput"))
 # for x in feed.entries:
 #     print (x.title)
 
