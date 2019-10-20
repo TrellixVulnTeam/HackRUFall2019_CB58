@@ -4,9 +4,32 @@ import feedparser
 import os
 from flask import Flask, request, redirect, session
 from run import set
+import datetime
+
+
+ time1 = session.get("time1")
+ date1 = session.get("date1")
+ title1 = session.get("title1")
+#
+# day1 = date1.split("-")
+# print (str(day1))
+#
+#
+# def addParams(strang, date, time, title):
+#      if(date != '-'):
+#          today = datetime.datetime.today()
+#          currDay=today.day
+#          dayDiff = int(date) - int(day)
+#          days = dayDiff
+#          strang = strang+'?numberOfDays'+days
+#     # if(time != '-'):
+
+
+
+RURL = "http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7"
 
 contents = urllib.request.urlopen("http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7").read()
-feed = feedparser.parse('http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7')
+feed = feedparser.parse(RURL)
 
 account_sid = 'ACc58f8372eb9b75f8d5fe4d587bccd167'
 auth_token = '54ed90c4225c224e23f0d35568b307d8'
@@ -22,9 +45,10 @@ client = Client(account_sid, auth_token)
 # print(message.sid)
 # print(contents)
 print(str(len(feed['entries'])) + " events happening this week.")
-print(session.get("userInput"))
+# print(session.get("userInput"))
 # for x in feed.entries:
 #     print (x.title)
+
 
 print('Enter interest to search for:')
 interest = input()
