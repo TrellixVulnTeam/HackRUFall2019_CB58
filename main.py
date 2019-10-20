@@ -1,9 +1,12 @@
 from twilio.rest import Client
+import run
 import urllib
 import feedparser
 
-contents = urllib.request.urlopen("http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7").read()
-feed = feedparser.parse('http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7')
+print(run.toReturn)
+
+#contents = urllib.request.urlopen("http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7").read()
+#feed = feedparser.parse('http://ruevents.rutgers.edu/events/getEventsRss.xml?numberOfDays=7')
 
 account_sid = 'ACc58f8372eb9b75f8d5fe4d587bccd167'
 auth_token = '54ed90c4225c224e23f0d35568b307d8'
@@ -16,17 +19,71 @@ client = Client(account_sid, auth_token)
 #                               to='+17326667804'
 #                           )
 
-# print(message.sid)
-# print(contents)
+def noDupeInsert(arr, x):
+    insert = True
+    for (y in arr):
+        if (y==x):
+            insert= False
+
+    return insert
+
+def EventLogic(ar):
+    #changing title to lowercase if
+    if (ar[2]!='-'):
+        ar[2]=ar[2].lower()
+     
+    toReturn =[]
+    for (x in feed.entries):
+        if (ar[0]==x.date and ar[0]!='-'):
+            #code
+            #need to check if the array already contains the event
+            if (noDupeInsert(toReturn,x)):
+                toReturn.append(x)
+        elif ((int(ar[1][0:3])==int(x.beginDateTime(11:13)) or int(ar[1][0:3])==(int(x.beginDateTime(11:13))+1) or int(ar[1][0:3])==(int(x.beginDateTime(11:13))-1)) and ar[1]!='-'):
+            #code
+            if (noDupeInsert(toReturn,x)):
+                toReturn.append(x)
+        elif (ar[2] in x.event.lower() and ar[2]!='-'):
+            #code
+            if (noDupeInsert(toReturn,x)):
+                toReturn.append(x)
+    return toReturn
+
+#for returning texts to bot will need to check if all 3 args are - or not
+def textLogic(arr):
+    if (arr[0]=='-' and arr[1]=='-' and arr[2]=='-'):
+       #code for if user does not specify input keywords (date, time, title) 
+       #we need to send texts here 
+       #as long as user does not enter a 0 (if user enters 0, then the loop breaks)
+    else :
+        #code for if user has specified input keywords
+        toUse = EventLogic(arr)
+        #we need to send texts here
+        #as long as user does not enter a 0
+    
+
+        
+
+def processing(x):
+    #x is a string
+    x=x.lower()
+    x=x.split(' ')
+    #now we have tokens seperated in spaces
+    return x
+
+
+
+print(message.sid)
+print(contents)
 print(str(len(feed['entries'])) + " events happening this week.")
 
-# for x in feed.entries:
-#     print (x.title)
+for x in feed.entries:
+     print (x.title)
 
 print('Enter interest to search for:')
 interest = input()
 
-interst = interest.lower()
+interest = interest.lower()
 count = 0
 for x in feed.entries:
     event_title = x.title
@@ -36,14 +93,14 @@ for x in feed.entries:
         if(count > 5):
             break
         print("------------------------------")
-        # print('Event found with interest:')
+         print('Event found with interest:')
         print(str(count)+'. ', end = '')
         title = str(x.title)
         print(title[0:20]+'...')
-        # print(x.title)
-        # if(x.description != x.title):
-        #     print(x.description)
-        # print(x.event_begindatetime)
+         print(x.title)
+         if(x.description != x.title):
+             print(x.description)
+         print(x.event_begindatetime)
 
 print("Please enter the number of any event that interests you, or send 0 to cancel")
 eventNum = input()
