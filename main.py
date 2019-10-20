@@ -34,16 +34,28 @@ def EventLogic(ar):
      
     toReturn =[]
     for (x in feed.entries):
+<<<<<<< HEAD
+        if (ar[0]==x.date and ar[0]!='-'):
+=======
         if (ar[0]==x.date & ar[0]!='-'):
+>>>>>>> d3fa86fa71d35063714add0017e4ae58c8b92fc3
             #code
             #need to check if the array already contains the event
             if (noDupeInsert(toReturn,x)):
                 toReturn.append(x)
+<<<<<<< HEAD
+        elif ((int(ar[1][0:3])==int(x.beginDateTime(11:13)) or int(ar[1][0:3])==(int(x.beginDateTime(11:13))+1) or int(ar[1][0:3])==(int(x.beginDateTime(11:13))-1)) and ar[1]!='-'):
+            #code
+            if (noDupeInsert(toReturn,x)):
+                toReturn.append(x)
+        elif (ar[2] in x.event.lower() and ar[2]!='-'):
+=======
         elif (ar[1]==x.time & ar[1]!='-'):
             #code
             if (noDupeInsert(toReturn,x)):
                 toReturn.append(x)
         elif (ar[2] in x.event.lower() & ar[2]!='-'):
+>>>>>>> d3fa86fa71d35063714add0017e4ae58c8b92fc3
             #code
             if (noDupeInsert(toReturn,x)):
                 toReturn.append(x)
@@ -51,13 +63,24 @@ def EventLogic(ar):
 
 #for returning texts to bot will need to check if all 3 args are - or not
 def textLogic(arr):
+<<<<<<< HEAD
+    if (arr[0]=='-' and arr[1]=='-' and arr[2]=='-'):
+       #code for if user does not specify input keywords (date, time, title) 
+       #we need to send texts here 
+       #as long as user does not enter a 0 (if user enters 0, then the loop breaks)
+=======
     if (arr[0]=='-' && arr[1]=='-' && arr[2]=='-'):
        #code for if user does not specify input keywords (date, time, title) 
        #we need to send texts here 
+>>>>>>> d3fa86fa71d35063714add0017e4ae58c8b92fc3
     else :
         #code for if user has specified input keywords
         toUse = EventLogic(arr)
         #we need to send texts here
+<<<<<<< HEAD
+        #as long as user does not enter a 0
+=======
+>>>>>>> d3fa86fa71d35063714add0017e4ae58c8b92fc3
     
 
         
